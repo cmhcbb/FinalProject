@@ -1,6 +1,6 @@
 load example1
 F=f_min:7900000:f_max;
-s=2*pi*1i*F;
+s=2*pi*1i*f_max;
 s0=f_max;
 R=-(A-s0*E)\B;
 M=(A-s0*E)\E;
