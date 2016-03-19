@@ -1,0 +1,98 @@
+% to be \input after \documentstyle[11pt,twoside]{article}
+
+% page size parameters
+
+\setlength\itemindent{0.1in}
+\setlength{\itemsep}{0in}
+
+\setlength{\topmargin}{0in}
+\setlength\oddsidemargin{0in}
+\setlength\evensidemargin{0in}
+\setlength\parindent{0.0in} 
+\setlength\textwidth{6.5in}
+\setlength\textheight{8.5in}
+\setlength{\parskip}{\medskipamount}
+
+\newenvironment{newmath}{\begin{displaymath}%
+\setlength{\abovedisplayskip}{4pt}%
+\setlength{\belowdisplayskip}{4pt}%
+\setlength{\abovedisplayshortskip}{3pt}%
+\setlength{\belowdisplayshortskip}{3pt} }{\end{displaymath}}
+
+% Cross-references for handout numbers.
+
+\makeatletter
+\newcommand{\hlabel}[2]{\write\@auxout{\string\newlabel{#1}{{#2}{0}}}}
+\makeatother
+
+%\input{../../handouts}	% defines handout labels
+
+
+% Make \section use \large instead of \Large typeface.
+
+\makeatletter
+\def\section{\@startsection {section}{1}{\z@}{-3.25ex plus -1ex minus -.2ex}
+{1.5ex plus .2ex}{\large\bf}}
+\makeatother
+
+
+
+
+% use \nullsec if the first thing after \handout isn't \section
+
+\newcommand{\nullsec}{\vspace*{3.25ex plus 1ex minus .2ex}}
+
+
+% header hackery
+
+\newlength{\toppush}
+\setlength{\toppush}{2\headheight}
+\addtolength{\toppush}{\headsep}
+
+
+\def\subjnum{MAT 226B}
+\def\subjname{Large-Scale Matrix Computations}
+
+\def\doheading#1#2#3{\vfill\eject\vspace*{-\toppush}%
+\vbox{\hbox to\textwidth{{\bf}\subjnum: \subjname \hfil Handout #1\strut}%
+\hbox to\textwidth{UC Davis --- Minhao Cheng \hfil#3\strut}%
+    \hrule}}
+
+\newcommand{\htitle}[1]{\vspace*{3.25ex plus 1ex minus .2ex}%
+  \begin{center}{\Large\bf #1}\end{center}}
+
+
+% page style that displays just footers
+\makeatletter
+\def\ps@justfooters{\let\@mkboth\@gobbletwo\def\@oddhead{}%
+	\def\evenhead{}}
+\makeatother
+
+% \handout{handout label}{title}{date}
+
+\newcommand{\handout}[3]{\thispagestyle{justfooters}%
+  \markboth{\subjnum\ Handout \protect\ref{#1}: #2}%
+    {\subjnum\ Handout \protect\ref{#1}: #2}%
+  \pagestyle{myheadings}%
+  \doheading{\protect\ref{#1}}{#2}{#3}%
+  \htitle{#2}}
+
+
+% \handoutwithouttitle{handout label}{date}
+
+\newcommand{\handoutwithouttitle}[2]{\thispagestyle{justfooters}%
+  \markboth{\subjnum\ Handout \protect\ref{#1}}%
+    {\subjnum\ Handout \protect\ref{#1}}%
+  \pagestyle{myheadings}%
+  \doheading{\protect\ref{#1}}{#2}{}}
+
+
+% hack to get (over) on the bottom of all following odd pages
+% must be placed by hand in source text
+
+\makeatletter
+\outer\def\OVER{\def\@oddfoot{\message{OVER}\rm\hfil(over)}}
+\makeatother
+
+\newcommand{\from}{{from}}
+
